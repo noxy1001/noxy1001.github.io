@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>osu! np bot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   
+    <h1>osu! np bot</h1>
+    
+    <p id="status">Disconnected</p>
+    <input type="text" id="tokenInput" readonly style="display:none;" />
+
+    <div id="auth">
+        <button id="loginButton">Login via Twitch</button>
+        <button id="disconnectButton" style="display:none;">Logout</button>
+        <button id="enableNpButton" style="display:none;">Enable !np</button> 
+    </div>
+
+    <div id="nowPlaying">Please log in</div>
+    <div class="error" id="error"></div>
+    <div id="tosuStatus"></div>
+    
+    <script src="tmi.js"></script>
+    <script src="main.js"></script> 
+</body>
+</html>
