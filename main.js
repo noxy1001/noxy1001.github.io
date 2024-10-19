@@ -7,7 +7,7 @@ let npEnabled = false;
 let tosumemoryInterval = null;
 
 document.getElementById('loginButton').addEventListener('click', function() {
-    const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:bot+user:read:chat+user:write:chat&force_verify=true`;
+    const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:bot+chat:read+chat:edit&force_verify=true`;
     window.location.href = authUrl;
 });
 
@@ -29,10 +29,9 @@ function getTokenFromUrl() {
     const hash = window.location.hash;
     if (hash) {
         const token = new URLSearchParams(hash.substring(1)).get('access_token');
-        history.replaceState(null, '', redirectUri);
+        history.replaceState(null, '', redirectUri); 
         return token;
     }
-    history.replaceState(null, '', redirectUri);
     return null;
 }
 
@@ -61,7 +60,7 @@ if (accessToken) {
     })
     .then(data => {
         if (data.data && data.data.length > 0) {
-            twitchUser = data.data[0].login;
+            twitchUser = data.data[0].login; 
             updateUI(); 
         } else {
             throw new Error('Failed to get user nickname');
@@ -111,7 +110,7 @@ function connectTwitchChat() {
     chatClient = new tmi.Client({
         options: { debug: true },
         identity: {
-            username: twitchUser,
+            username: twitchUser,  
             password: `oauth:${accessToken}`
         },
         channels: [twitchUser] 
