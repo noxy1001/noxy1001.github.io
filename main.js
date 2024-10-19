@@ -7,7 +7,7 @@ let npEnabled = false;
 let tosumemoryInterval = null;
 
 document.getElementById('loginButton').addEventListener('click', function() {
-    const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${client_id}&redirect_uri=${redirectUri}&scope=user:bot+user:read:chat+user:write:chat&force_verify=true`;
+    const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:bot+user:read:chat+user:write:chat&force_verify=true`;
     window.location.href = authUrl;
 });
 
