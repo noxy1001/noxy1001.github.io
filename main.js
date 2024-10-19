@@ -5,6 +5,7 @@ let twitchUser = null;
 let chatClient = null;
 let npEnabled = false; 
 let tosumemoryInterval = null;
+let lastNpCommandTime = 0; 
 
 document.getElementById('loginButton').addEventListener('click', function() {
     const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:bot+chat:read+chat:edit&force_verify=true`;
@@ -110,10 +111,10 @@ function connectTwitchChat() {
     chatClient = new tmi.Client({
         options: { debug: true },
         identity: {
-            username: twitchUser,  
+            username: twitchUser,
             password: `oauth:${accessToken}`
         },
-        channels: [twitchUser] 
+        channels: [twitchUser]
     });
 
     chatClient.connect();
@@ -121,12 +122,18 @@ function connectTwitchChat() {
     chatClient.on('message', (channel, tags, message, self) => {
         if (self) return;
 
+        const cooldown = parseInt(document.getElementById('npCooldown').value);  // Время кулдауна, по умолчанию 10 секунд
+        const currentTime = Date.now();  // Текущее время
+
         if (message.toLowerCase() === '!np' && npEnabled) {
-            getNowPlaying().then(nowPlaying => {
-                if (nowPlaying) {
-                    chatClient.say(channel, `Now playing: ${nowPlaying}`);
-                }
-            });
+            if (currentTime - lastNpCommandTime >= cooldown * 1000) {  // Проверка кулдауна
+                getNowPlaying().then(nowPlaying => {
+                    if (nowPlaying) {
+                        chatClient.say(channel, `Now playing: ${nowPlaying}`);
+                        lastNpCommandTime = currentTime;  // Обновляем время последнего вызова
+                    }
+                });
+            }
         }
     });
 }
@@ -138,7 +145,7 @@ document.getElementById('enableNpButton').addEventListener('click', function() {
         document.getElementById('nowPlaying').innerText = ''; 
         this.innerText = 'Disable !np'; 
         connectTwitchChat();
-        tosumemoryInterval = setInterval(getNowPlaying, 5000);
+        tosumemoryInterval = setInterval(getNowPlaying, 1000);
     } else {
         if (chatClient) {
             chatClient.disconnect();
