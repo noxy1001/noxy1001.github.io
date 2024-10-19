@@ -138,7 +138,7 @@ document.getElementById('enableNpButton').addEventListener('click', function() {
         document.getElementById('nowPlaying').innerText = ''; 
         this.innerText = 'Disable !np'; 
         connectTwitchChat();
-        tosumemoryInterval = setInterval(getNowPlaying, 1000);
+        tosumemoryInterval = setInterval(getNowPlaying, 5000);
     } else {
         if (chatClient) {
             chatClient.disconnect();
