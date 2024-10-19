@@ -6,7 +6,6 @@ let chatClient = null;
 let npEnabled = false; 
 let tosumemoryInterval = null;
 
-
 document.getElementById('loginButton').addEventListener('click', function() {
     const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=chat:read+chat:edit+user:read:email`;
     window.location.href = authUrl;
@@ -41,7 +40,7 @@ function updateUI() {
     document.getElementById('loginButton').style.display = "none";
     document.getElementById('disconnectButton').style.display = "inline";
     document.getElementById('enableNpButton').style.display = "inline";
-    document.getElementById('tokenInput').value = accessToken; 
+    document.getElementById('tokenInput').value = accessToken;
 }
 
 accessToken = getTokenFromUrl();
