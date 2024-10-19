@@ -11,8 +11,11 @@
     <h1>osu! np bot</h1>
     
     <p id="status">Disconnected</p>
-    <label for="tokenInput">Token:</label>
+    <label for="tokenInput">Token</label>
     <input type="password" id="tokenInput" readonly style="width: 10%;" />
+    <label for="npCooldown">Cooldown (in seconds)</label>
+    <input type="number" id="npCooldown" min="1">
+
 
     <div id="auth">
         <button id="loginButton">Login via Twitch</button>
