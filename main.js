@@ -1,5 +1,5 @@
 const clientId = '1l51yhrtds5wg4757q3uduiq6apo6f';
-const redirectUri = 'http://localhost'; 
+const redirectUri = 'https://noxy1001.github.io'; 
 let accessToken = null;
 let twitchUser = null;
 let chatClient = null;
