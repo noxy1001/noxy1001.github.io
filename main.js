@@ -1,5 +1,5 @@
 const clientId = '1l51yhrtds5wg4757q3uduiq6apo6f';
-const redirectUri = 'https://noxy1001.github.io'; 
+const redirectUri = 'http://localhost'; 
 let accessToken = null;
 let twitchUser = null;
 let chatClient = null;
@@ -38,7 +38,8 @@ function getTokenFromUrl() {
 
 function updateUI() {
     document.getElementById('status').innerText = `Logged as ${twitchUser}`; 
-    document.getElementById('nowPlaying').innerText = `enable !np MOLU`; 
+    document.getElementById('nowPlaying').innerHTML = 'Enable !np <img src="MOLU.gif" style="width:40px; height:auto;">';
+
     document.getElementById('loginButton').style.display = "none";
     document.getElementById('disconnectButton').style.display = "inline";
     document.getElementById('enableNpButton').style.display = "inline";
@@ -87,7 +88,7 @@ function getNowPlaying() {
                 const beatmapUrl = `https://osu.ppy.sh/beatmapsets/${data.menu.bm.set}#osu/${data.menu.bm.id}`;
                 
                 document.getElementById('nowPlaying').innerHTML = 
-                    `Now playing: <strong>${mapArtist} - ${mapTitle} [${mapDifficulty}]</strong> <br> <a href="${beatmapUrl}" target="_blank">Map link</a>`;
+                    `Now playing: <strong>${mapArtist} - ${mapTitle} [${mapDifficulty}]</strong> <br> <a href="${beatmapUrl}" id="maplink" target="_blank">Map link</a>`;
                 
                 document.getElementById('tosuStatus').innerText = 'Tosu запущен!';
                 document.getElementById('tosuStatus').style.color = 'green';
@@ -152,7 +153,7 @@ document.getElementById('enableNpButton').addEventListener('click', function() {
             chatClient = null;
         }
         this.innerText = 'Enable !np';
-        document.getElementById('nowPlaying').innerText = '!np disabled SadCat'; 
+        document.getElementById('nowPlaying').innerHTML = '!np disabled <img src="SadCat.gif" style="width:40px; height:auto;">';
         document.getElementById('tosuStatus').innerText = ''; 
         clearInterval(tosumemoryInterval); 
     }
