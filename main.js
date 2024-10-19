@@ -29,8 +29,10 @@ function getTokenFromUrl() {
     const hash = window.location.hash;
     if (hash) {
         const token = new URLSearchParams(hash.substring(1)).get('access_token');
+        history.replaceState(null, '', redirectUri);
         return token;
     }
+    history.replaceState(null, '', redirectUri);
     return null;
 }
 
