@@ -7,6 +7,8 @@ let npEnabled = false;
 let tosumemoryInterval = null;
 let lastNpCommandTime = 0; 
 
+
+
 document.getElementById('loginButton').addEventListener('click', function() {
     const authUrl = `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=${clientId}&redirect_uri=${redirectUri}&scope=user:bot+chat:read+chat:edit&force_verify=true`;
     window.location.href = authUrl;
@@ -146,7 +148,11 @@ document.getElementById('enableNpButton').addEventListener('click', function() {
         document.getElementById('nowPlaying').innerText = ''; 
         this.innerText = 'Disable !np'; 
         connectTwitchChat();
-        tosumemoryInterval = setInterval(getNowPlaying, 1000);
+        tosumemoryInterval = setInterval(function() {
+            if (npEnabled){
+                getNowPlaying(); 
+            }
+        }, 1000);
     } else {
         if (chatClient) {
             chatClient.disconnect();
